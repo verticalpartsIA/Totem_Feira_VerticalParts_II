@@ -31,7 +31,10 @@ export const Route = createFileRoute("/projeto/$slug")({
 
 function ProjetoPage() {
   useIdleRedirect(30_000);
-  const { cliente, fotos } = Route.useLoaderData();
+  const { cliente, fotos } = Route.useLoaderData() as {
+    cliente: NonNullable<ReturnType<typeof getCliente>>;
+    fotos: string[];
+  };
   const { from } = Route.useSearch();
   const navigate = useNavigate();
 

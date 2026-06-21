@@ -27,7 +27,7 @@ export const Route = createFileRoute("/categoria/$slug")({
 
 function CategoriaPage() {
   useIdleRedirect(30_000);
-  const { cat } = Route.useLoaderData();
+  const { cat } = Route.useLoaderData() as { cat: Categoria };
   const info = CATEGORIAS[cat];
   const clientes = getClientesPorCategoria(cat);
 
