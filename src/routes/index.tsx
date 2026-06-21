@@ -4,8 +4,9 @@ import escadaAsset from "@/assets/escada-rolante.png.asset.json";
 import esteiraImg from "@/assets/esteira-rolante.jpg";
 import elevadorImg from "@/assets/elevador.jpg";
 import projetosImg from "@/assets/projetos.jpg";
+import pecasAsset from "@/assets/pecas.png.asset.json";
+import sobreAsset from "@/assets/sobre.png.asset.json";
 import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
-import type { Categoria } from "@/lib/clientes";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,17 +28,26 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-type Item = {
-  label: string;
-  image: string;
-  slug: Categoria;
-};
+type Item =
+  | {
+      label: string;
+      image: string;
+      to: "/categoria/$slug";
+      params: { slug: "escadas" | "esteiras" | "elevadores" | "projetos" };
+    }
+  | {
+      label: string;
+      image: string;
+      to: "/pecas" | "/sobre";
+    };
 
 const items: Item[] = [
-  { label: "Escadas\nRolante", image: escadaAsset.url, slug: "escadas" },
-  { label: "Esteiras\nRolante", image: esteiraImg, slug: "esteiras" },
-  { label: "Elevadores", image: elevadorImg, slug: "elevadores" },
-  { label: "Projetos\nEspeciais", image: projetosImg, slug: "projetos" },
+  { label: "Escadas\nRolante", image: escadaAsset.url, to: "/categoria/$slug", params: { slug: "escadas" } },
+  { label: "Esteiras\nRolante", image: esteiraImg, to: "/categoria/$slug", params: { slug: "esteiras" } },
+  { label: "Elevadores", image: elevadorImg, to: "/categoria/$slug", params: { slug: "elevadores" } },
+  { label: "Projetos\nEspeciais", image: projetosImg, to: "/categoria/$slug", params: { slug: "projetos" } },
+  { label: "Peças Elevadores,\nEscadas e Esteiras", image: pecasAsset.url, to: "/pecas" },
+  { label: "Sobre a\nVerticalParts", image: sobreAsset.url, to: "/sobre" },
 ];
 
 function Index() {
@@ -69,29 +79,35 @@ function Index() {
 
           {/* Menu */}
           <nav className="w-full flex flex-col gap-6">
-            {items.map((item) => (
-              <Link
-                key={item.slug}
-                to="/categoria/$slug"
-                params={{ slug: item.slug }}
-                className="group relative flex items-center w-full h-24 rounded-[2.5rem] bg-brand-yellow text-brand-yellow-foreground shadow-xl transition-transform active:scale-[0.98] hover:-translate-y-0.5"
-              >
-                <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-[110%] w-32 rounded-[2rem] overflow-hidden ring-4 ring-background/40 shadow-lg">
-                  <img
-                    src={item.image}
-                    alt=""
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                </span>
-                <span className="ml-36 pr-6 w-full text-center font-serif italic text-2xl leading-tight whitespace-pre-line">
-                  {item.label}
-                </span>
-              </Link>
-            ))}
+            {items.map((item) => {
+              const linkProps =
+                item.to === "/categoria/$slug"
+                  ? { to: item.to, params: item.params }
+                  : { to: item.to };
+              return (
+                <Link
+                  key={item.label}
+                  {...linkProps}
+                  className="group relative flex items-center w-full h-24 rounded-[2.5rem] bg-brand-yellow text-brand-yellow-foreground shadow-xl transition-transform active:scale-[0.98] hover:-translate-y-0.5"
+                >
+                  <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-[110%] w-32 rounded-[2rem] overflow-hidden ring-4 ring-background/40 shadow-lg">
+                    <img
+                      src={item.image}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  </span>
+                  <span className="ml-36 pr-6 w-full text-center font-serif italic text-xl leading-tight whitespace-pre-line">
+                    {item.label}
+                  </span>
+                </Link>
+              );
+            })}
           </nav>
         </div>
       </div>
     </main>
   );
 }
+
