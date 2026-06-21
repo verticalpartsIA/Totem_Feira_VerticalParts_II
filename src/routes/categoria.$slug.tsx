@@ -64,14 +64,14 @@ function CategoriaPage() {
             <p className="text-foreground/70 text-sm mt-2">{info.subtitulo}</p>
           </div>
 
-          {clientes.length === 0 ? (
+          {projetos.length === 0 ? (
             <p className="text-foreground/60 text-center py-12">
               Em breve novos projetos nesta categoria.
             </p>
           ) : (
             <ul className="flex flex-col gap-4">
-              {clientes.map((c) => {
-                const cover = getFotos(c.slug)[0];
+              {projetos.map((c) => {
+                const cover = getFotos(c)[0];
                 return (
                   <li key={c.slug}>
                     <Link
