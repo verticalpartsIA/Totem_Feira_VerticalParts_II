@@ -4,7 +4,7 @@ import escadaImg from "@/assets/escada-rolante.jpg";
 import esteiraImg from "@/assets/esteira-rolante.jpg";
 import elevadorImg from "@/assets/elevador.jpg";
 import projetosImg from "@/assets/projetos.jpg";
-import logoAsset from "@/assets/logo-verticalparts.png.asset.json";
+import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
