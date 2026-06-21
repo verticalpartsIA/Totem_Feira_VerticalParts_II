@@ -4,7 +4,7 @@ import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 import heroImg from "@/assets/hero-escalator.jpg";
 import {
   CATEGORIAS,
-  getClientesPorCategoria,
+  getProjetosPorCategoria,
   getFotos,
   type Categoria,
 } from "@/lib/clientes";
