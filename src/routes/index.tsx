@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-escalator.jpg";
 import escadaImg from "@/assets/escada-rolante.jpg";
 import esteiraImg from "@/assets/esteira-rolante.jpg";
 import elevadorImg from "@/assets/elevador.jpg";
 import projetosImg from "@/assets/projetos.jpg";
 import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
+import type { Categoria } from "@/lib/clientes";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,13 +30,14 @@ export const Route = createFileRoute("/")({
 type Item = {
   label: string;
   image: string;
+  slug: Categoria;
 };
 
 const items: Item[] = [
-  { label: "Escadas\nRolante", image: escadaImg },
-  { label: "Esteiras\nRolante", image: esteiraImg },
-  { label: "Elevadores", image: elevadorImg },
-  { label: "Projetos\nEspeciais", image: projetosImg },
+  { label: "Escadas\nRolante", image: escadaImg, slug: "escadas" },
+  { label: "Esteiras\nRolante", image: esteiraImg, slug: "esteiras" },
+  { label: "Elevadores", image: elevadorImg, slug: "elevadores" },
+  { label: "Projetos\nEspeciais", image: projetosImg, slug: "projetos" },
 ];
 
 function Index() {
@@ -61,15 +63,17 @@ function Index() {
             />
           </header>
 
-          {/* Curved divider */}
-          <div className="w-full h-px bg-foreground/10 mb-10" />
+          <p className="text-foreground/80 text-center text-sm mb-8 max-w-xs">
+            Toque em uma categoria para conhecer nossos projetos
+          </p>
 
           {/* Menu */}
           <nav className="w-full flex flex-col gap-6">
             {items.map((item) => (
-              <button
-                key={item.label}
-                type="button"
+              <Link
+                key={item.slug}
+                to="/categoria/$slug"
+                params={{ slug: item.slug }}
                 className="group relative flex items-center w-full h-24 rounded-[2.5rem] bg-brand-yellow text-brand-yellow-foreground shadow-xl transition-transform active:scale-[0.98] hover:-translate-y-0.5"
               >
                 <span className="absolute -left-2 top-1/2 -translate-y-1/2 h-[110%] w-32 rounded-[2rem] overflow-hidden ring-4 ring-background/40 shadow-lg">
@@ -83,7 +87,7 @@ function Index() {
                 <span className="ml-36 pr-6 w-full text-center font-serif italic text-2xl leading-tight whitespace-pre-line">
                   {item.label}
                 </span>
-              </button>
+              </Link>
             ))}
           </nav>
         </div>
