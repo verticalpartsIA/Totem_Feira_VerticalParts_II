@@ -29,7 +29,7 @@ function CategoriaPage() {
   useIdleRedirect(30_000);
   const { cat } = Route.useLoaderData() as { cat: Categoria };
   const info = CATEGORIAS[cat];
-  const clientes = getClientesPorCategoria(cat);
+  const projetos = getProjetosPorCategoria(cat);
 
   return (
     <main className="min-h-screen w-full bg-background flex justify-center">
