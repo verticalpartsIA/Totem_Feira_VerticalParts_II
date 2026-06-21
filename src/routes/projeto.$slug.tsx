@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { z } from "zod";
 import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
-import { getCliente, getFotos } from "@/lib/clientes";
+import { getProjeto, getFotos } from "@/lib/clientes";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
 
 const searchSchema = z.object({
