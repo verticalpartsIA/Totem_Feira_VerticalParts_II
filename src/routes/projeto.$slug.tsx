@@ -18,9 +18,9 @@ export const Route = createFileRoute("/projeto/$slug")({
   component: ProjetoPage,
   validateSearch: searchSchema,
   loader: ({ params }) => {
-    const cliente = getCliente(params.slug);
+    const cliente = getProjeto(params.slug);
     if (!cliente) throw notFound();
-    return { cliente, fotos: getFotos(cliente.slug) };
+    return { cliente, fotos: getFotos(cliente) };
   },
   notFoundComponent: () => (
     <main className="min-h-screen flex items-center justify-center text-foreground">
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/projeto/$slug")({
 function ProjetoPage() {
   useIdleRedirect(30_000);
   const { cliente, fotos } = Route.useLoaderData() as {
-    cliente: NonNullable<ReturnType<typeof getCliente>>;
+    cliente: NonNullable<ReturnType<typeof getProjeto>>;
     fotos: string[];
   };
   const { from } = Route.useSearch();
