@@ -168,12 +168,6 @@ export const PROJETOS: Projeto[] = [
       "1DlXziF3ad62PwlDeqaBrDi_W7Z3NYv6t",
     ],
   },
-  {
-    slug: "rossi",
-    nome: "Rossi",
-    categoria: "projetos",
-    fotosIds: ["1oMBHB6sirzdtNPUOy9uvGaNrzaZT9DSY"],
-  },
 ];
 
 export const CATEGORIAS: Record<
