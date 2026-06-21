@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, Building2, Users, Target, Award } from "lucide-react";
+import {
+  ChevronLeft,
+  Truck,
+  Headphones,
+  Boxes,
+  Handshake,
+} from "lucide-react";
 import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 import sobreAsset from "@/assets/sobre.png.asset.json";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
@@ -11,37 +17,37 @@ export const Route = createFileRoute("/sobre")({
       {
         name: "description",
         content:
-          "VerticalParts: especialistas em peças e serviços para elevadores, escadas e esteiras rolantes.",
+          "VerticalParts: especialistas em elevadores, escadas e esteiras rolantes, com parceria internacional e peças a pronta entrega.",
       },
     ],
   }),
   component: SobrePage,
 });
 
-const PILARES = [
+const DIFERENCIAIS = [
   {
-    icon: Building2,
-    titulo: "Sede própria",
+    icon: Truck,
+    titulo: "Entrega em todo o Brasil",
     texto:
-      "Estrutura completa em São Paulo, com showroom, estoque e centro técnico.",
+      "Distribuímos peças e componentes para todo o território nacional, com agilidade e segurança.",
   },
   {
-    icon: Users,
-    titulo: "Equipe especializada",
+    icon: Boxes,
+    titulo: "Amplo estoque",
     texto:
-      "Engenheiros, técnicos e consultores dedicados ao transporte vertical.",
+      "Peças de diversas marcas e modelos à pronta entrega, com estoque estratégico para reduzir paradas.",
   },
   {
-    icon: Target,
-    titulo: "Foco no cliente",
+    icon: Handshake,
+    titulo: "Parceria internacional",
     texto:
-      "Atendimento ágil, soluções sob medida e suporte do início ao pós-venda.",
+      "Soluções personalizadas em transporte de passageiros com tecnologia e padrões internacionais.",
   },
   {
-    icon: Award,
-    titulo: "Qualidade comprovada",
+    icon: Headphones,
+    titulo: "Suporte especializado",
     texto:
-      "Atendemos aeroportos, supermercados, shoppings e grandes empreendimentos.",
+      "Equipe experiente que acompanha do planejamento à conclusão do seu projeto.",
   },
 ];
 
@@ -66,29 +72,60 @@ function SobrePage() {
         <div className="rounded-3xl overflow-hidden mb-6 shadow-xl ring-1 ring-foreground/10">
           <img
             src={sobreAsset.url}
-            alt="Sede da VerticalParts"
+            alt="VerticalParts"
             className="w-full h-56 object-cover"
           />
         </div>
 
         <p className="text-brand-yellow text-xs tracking-[0.25em] uppercase mb-2">
-          Quem somos
+          Sobre nós
         </p>
         <h1 className="font-serif italic text-4xl text-foreground leading-tight mb-3">
-          Sobre a<br />VerticalParts
+          A empresa certa<br />para o seu negócio
         </h1>
+        <p className="text-foreground/70 text-sm mb-4">
+          A VerticalParts é uma empresa líder com parceria internacional,
+          especializada em soluções personalizadas de transporte de passageiros
+          — elevadores, escadas e esteiras rolantes.
+        </p>
         <p className="text-foreground/70 text-sm mb-6">
-          Somos referência em peças e serviços para elevadores, escadas e
-          esteiras rolantes, unindo tecnologia, agilidade e atendimento próximo
-          para manter pessoas em movimento.
+          Com estoque estratégico, entregamos peças e componentes no prazo
+          necessário. Nossa equipe acompanha desde o planejamento até a
+          conclusão do projeto, garantindo soluções confiáveis em mobilidade
+          vertical.
         </p>
 
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="p-4 rounded-2xl bg-card/10 ring-1 ring-foreground/10 text-center">
+            <p className="font-serif italic text-3xl text-brand-yellow leading-none">
+              +500
+            </p>
+            <p className="text-foreground/70 text-xs mt-1">
+              Clientes satisfeitos
+            </p>
+          </div>
+          <div className="p-4 rounded-2xl bg-card/10 ring-1 ring-foreground/10 text-center">
+            <p className="font-serif italic text-3xl text-brand-yellow leading-none">
+              +10 Mil
+            </p>
+            <p className="text-foreground/70 text-xs mt-1">
+              Peças a pronta entrega
+            </p>
+          </div>
+          <div className="col-span-2 p-4 rounded-2xl bg-card/10 ring-1 ring-foreground/10 text-center">
+            <p className="font-serif italic text-3xl text-brand-yellow leading-none">
+              +15 anos
+            </p>
+            <p className="text-foreground/70 text-xs mt-1">de experiência</p>
+          </div>
+        </div>
+
         <div className="flex-1 flex flex-col gap-3">
-          {PILARES.map((p) => {
-            const Icon = p.icon;
+          {DIFERENCIAIS.map((d) => {
+            const Icon = d.icon;
             return (
               <div
-                key={p.titulo}
+                key={d.titulo}
                 className="flex items-start gap-3 p-4 rounded-2xl bg-card/10 ring-1 ring-foreground/10 backdrop-blur-sm"
               >
                 <div className="bg-brand-yellow text-brand-yellow-foreground p-2 rounded-xl shrink-0">
@@ -96,9 +133,9 @@ function SobrePage() {
                 </div>
                 <div className="min-w-0">
                   <p className="font-serif italic text-lg text-foreground leading-tight">
-                    {p.titulo}
+                    {d.titulo}
                   </p>
-                  <p className="text-foreground/70 text-sm mt-1">{p.texto}</p>
+                  <p className="text-foreground/70 text-sm mt-1">{d.texto}</p>
                 </div>
               </div>
             );
