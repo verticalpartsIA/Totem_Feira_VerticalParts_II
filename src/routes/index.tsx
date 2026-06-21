@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-escalator.jpg";
-import escadaImg from "@/assets/escada-rolante.jpg";
+import escadaAsset from "@/assets/escada-rolante.png.asset.json";
 import esteiraImg from "@/assets/esteira-rolante.jpg";
 import elevadorImg from "@/assets/elevador.jpg";
 import projetosImg from "@/assets/projetos.jpg";
