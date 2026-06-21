@@ -4,7 +4,7 @@ import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 import heroImg from "@/assets/hero-escalator.jpg";
 import {
   CATEGORIAS,
-  getClientesPorCategoria,
+  getProjetosPorCategoria,
   getFotos,
   type Categoria,
 } from "@/lib/clientes";
@@ -29,7 +29,7 @@ function CategoriaPage() {
   useIdleRedirect(30_000);
   const { cat } = Route.useLoaderData() as { cat: Categoria };
   const info = CATEGORIAS[cat];
-  const clientes = getClientesPorCategoria(cat);
+  const projetos = getProjetosPorCategoria(cat);
 
   return (
     <main className="min-h-screen w-full bg-background flex justify-center">
@@ -64,14 +64,14 @@ function CategoriaPage() {
             <p className="text-foreground/70 text-sm mt-2">{info.subtitulo}</p>
           </div>
 
-          {clientes.length === 0 ? (
+          {projetos.length === 0 ? (
             <p className="text-foreground/60 text-center py-12">
               Em breve novos projetos nesta categoria.
             </p>
           ) : (
             <ul className="flex flex-col gap-4">
-              {clientes.map((c) => {
-                const cover = getFotos(c.slug)[0];
+              {projetos.map((c) => {
+                const cover = getFotos(c)[0];
                 return (
                   <li key={c.slug}>
                     <Link
