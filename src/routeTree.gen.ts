@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PecasRouteImport } from './routes/pecas'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjetoSlugRouteImport } from './routes/projeto.$slug'
 import { Route as CategoriaSlugRouteImport } from './routes/categoria.$slug'
 
+const PecasRoute = PecasRouteImport.update({
+  id: '/pecas',
+  path: '/pecas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContatoRoute = ContatoRouteImport.update({
   id: '/contato',
   path: '/contato',
@@ -38,12 +44,14 @@ const CategoriaSlugRoute = CategoriaSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/pecas': typeof PecasRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/projeto/$slug': typeof ProjetoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/pecas': typeof PecasRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/projeto/$slug': typeof ProjetoSlugRoute
 }
@@ -51,26 +59,41 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/pecas': typeof PecasRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/projeto/$slug': typeof ProjetoSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contato' | '/categoria/$slug' | '/projeto/$slug'
+  fullPaths: '/' | '/contato' | '/pecas' | '/categoria/$slug' | '/projeto/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contato' | '/categoria/$slug' | '/projeto/$slug'
-  id: '__root__' | '/' | '/contato' | '/categoria/$slug' | '/projeto/$slug'
+  to: '/' | '/contato' | '/pecas' | '/categoria/$slug' | '/projeto/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/contato'
+    | '/pecas'
+    | '/categoria/$slug'
+    | '/projeto/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
+  PecasRoute: typeof PecasRoute
   CategoriaSlugRoute: typeof CategoriaSlugRoute
   ProjetoSlugRoute: typeof ProjetoSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pecas': {
+      id: '/pecas'
+      path: '/pecas'
+      fullPath: '/pecas'
+      preLoaderRoute: typeof PecasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contato': {
       id: '/contato'
       path: '/contato'
@@ -105,6 +128,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
+  PecasRoute: PecasRoute,
   CategoriaSlugRoute: CategoriaSlugRoute,
   ProjetoSlugRoute: ProjetoSlugRoute,
 }
