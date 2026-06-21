@@ -34,7 +34,7 @@ type Item = {
 };
 
 const items: Item[] = [
-  { label: "Escadas\nRolante", image: escadaImg, slug: "escadas" },
+  { label: "Escadas\nRolante", image: escadaAsset.url, slug: "escadas" },
   { label: "Esteiras\nRolante", image: esteiraImg, slug: "esteiras" },
   { label: "Elevadores", image: elevadorImg, slug: "elevadores" },
   { label: "Projetos\nEspeciais", image: projetosImg, slug: "projetos" },
