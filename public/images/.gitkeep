@@ -1,0 +1,8 @@
+# Coloque aqui as 4 imagens necessárias para o deploy:
+# - logo-verticalparts-white-v2.png
+# - escada-rolante.png
+# - pecas.png
+# - sobre.png
+#
+# Após adicionar, rode: git add public/images/ && git commit && git push
+# O GitHub Actions usará estas imagens automaticamente no próximo deploy.

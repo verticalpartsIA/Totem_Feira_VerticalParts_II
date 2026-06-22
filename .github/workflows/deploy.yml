@@ -1,0 +1,130 @@
+name: Deploy → Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Pre-render HTML (8 rotas)
+        run: node temp-prerender.mjs
+
+      - name: Prepare deploy folder
+        run: |
+          mkdir -p deploy/assets
+
+          # 1. Assets do build (JS, CSS, imagens hashed)
+          cp dist/client/assets/* deploy/assets/
+
+          # 2. Imagens fixas (commitar em public/images/ antes de usar CI)
+          if [ -d public/images ]; then
+            cp public/images/* deploy/assets/
+          fi
+
+          # 3. HTML pré-renderizado → deploy/
+          cp -r static-output/* deploy/
+
+          # 4. Patchar URLs CDN nos HTML
+          CDN_LOGO="/__l5e/assets-v1/48f16f42-3fad-4ef4-982f-2968badce816/logo-verticalparts-white-v2.png"
+          CDN_ESCADA="/__l5e/assets-v1/fb2247d4-4fe8-466f-9dc2-2275404eb8c8/escada-rolante.png"
+          CDN_PECAS="/__l5e/assets-v1/83d2d272-b073-419c-95fa-9f4699930acc/pecas.png"
+          CDN_SOBRE="/__l5e/assets-v1/cdade634-6129-464f-ac19-31710fae2ae9/sobre.png"
+
+          find deploy -name "*.html" | xargs sed -i \
+            "s|$CDN_LOGO|/assets/logo-verticalparts-white-v2.png|g;
+             s|$CDN_ESCADA|/assets/escada-rolante.png|g;
+             s|$CDN_PECAS|/assets/pecas.png|g;
+             s|$CDN_SOBRE|/assets/sobre.png|g"
+
+          # 5. Patchar URLs CDN nos JS bundles (crítico para hidratação React)
+          find deploy/assets -name "*.js" | xargs grep -l '__l5e' 2>/dev/null | while read f; do
+            sed -i \
+              "s|$CDN_LOGO|/assets/logo-verticalparts-white-v2.png|g;
+               s|$CDN_ESCADA|/assets/escada-rolante.png|g;
+               s|$CDN_PECAS|/assets/pecas.png|g;
+               s|$CDN_SOBRE|/assets/sobre.png|g" "$f"
+            echo "Patched: $f"
+          done
+
+          # 6. .htaccess Apache SPA routing
+          cat > deploy/.htaccess << 'HTACCESS'
+          Options -MultiViews
+          RewriteEngine On
+          RewriteBase /
+
+          RewriteCond %{REQUEST_FILENAME} -f [OR]
+          RewriteCond %{REQUEST_FILENAME} -d
+          RewriteRule ^ - [L]
+
+          RewriteRule ^$ /index.html [L]
+          RewriteRule ^contato/?$ /contato/index.html [L]
+          RewriteRule ^pecas/?$ /pecas/index.html [L]
+          RewriteRule ^sobre/?$ /sobre/index.html [L]
+          RewriteRule ^categoria/escadas/?$ /categoria/escadas/index.html [L]
+          RewriteRule ^categoria/esteiras/?$ /categoria/esteiras/index.html [L]
+          RewriteRule ^categoria/elevadores/?$ /categoria/elevadores/index.html [L]
+          RewriteRule ^categoria/projetos/?$ /categoria/projetos/index.html [L]
+          RewriteRule ^projeto/.+$ /index.html [L]
+          RewriteRule ^(.*)$ /index.html [L]
+          HTACCESS
+
+          echo "Deploy folder ready:"
+          find deploy -type f | wc -l
+
+      - name: Create ZIP
+        run: cd deploy && zip -rq ../deploy.zip .
+
+      - name: Upload ZIP ao servidor via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 185.245.180.223
+          port: 65002
+          username: u926853941
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          source: deploy.zip
+          target: /home/u926853941/domains/interativo.vpsistema.com/
+
+      - name: Extrair e ativar no servidor
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 185.245.180.223
+          port: 65002
+          username: u926853941
+          password: ${{ secrets.HOSTINGER_PASSWORD }}
+          script: |
+            set -e
+            PUBDIR=~/domains/interativo.vpsistema.com/public_html
+            ZIPFILE=~/domains/interativo.vpsistema.com/deploy.zip
+
+            # Backup rápido (apenas index.html)
+            cp $PUBDIR/index.html $PUBDIR/../index.html.bak 2>/dev/null || true
+
+            # Limpar public_html
+            rm -rf $PUBDIR/*  $PUBDIR/.[^.]*
+
+            # Extrair
+            unzip -q $ZIPFILE -d $PUBDIR
+            rm $ZIPFILE
+
+            echo "Deploy concluído: $(date)"
+            ls $PUBDIR

@@ -1,12 +1,19 @@
-// Build config: uses @lovable.dev/vite-tanstack-config as a wrapper around
-// TanStack Start / Nitro / Vite — includes tailwindcss, tsConfigPaths, React,
-// and SSR (Nitro targeting Cloudflare Workers for build; Apache static for deploy).
-// For deploy instructions, see DEPLOY_CONTEXT.md.
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import tsConfigPaths from 'vite-tsconfig-paths'
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 
 export default defineConfig({
-  tanstackStart: {
-    // SSR entry point — Nitro builds from src/server.ts
-    server: { entry: "server" },
+  plugins: [
+    TanStackRouterVite({ autoCodeSplitting: true }),
+    react(),
+    tailwindcss(),
+    tsConfigPaths(),
+  ],
+  server: {
+    port: 8080,
+    host: '0.0.0.0',
+    strictPort: true,
   },
-});
+})
