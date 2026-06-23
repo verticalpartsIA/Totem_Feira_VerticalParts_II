@@ -36,24 +36,26 @@ jobs:
             cp public/images/* deploy/assets/
           fi
           cp -r static-output/* deploy/
-          cat > deploy/.htaccess << 'HTACCESS'
-Options -MultiViews
-RewriteEngine On
-RewriteBase /
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-RewriteRule ^$ /index.html [L]
-RewriteRule ^contato/?$ /contato/index.html [L]
-RewriteRule ^pecas/?$ /pecas/index.html [L]
-RewriteRule ^sobre/?$ /sobre/index.html [L]
-RewriteRule ^categoria/escadas/?$ /categoria/escadas/index.html [L]
-RewriteRule ^categoria/esteiras/?$ /categoria/esteiras/index.html [L]
-RewriteRule ^categoria/elevadores/?$ /categoria/elevadores/index.html [L]
-RewriteRule ^categoria/projetos/?$ /categoria/projetos/index.html [L]
-RewriteRule ^projeto/.+$ /index.html [L]
-RewriteRule ^(.*)$ /index.html [L]
-HTACCESS
+          printf '%s\n' \
+            'Options -MultiViews' \
+            'RewriteEngine On' \
+            'RewriteBase /' \
+            '' \
+            'RewriteCond %{REQUEST_FILENAME} -f [OR]' \
+            'RewriteCond %{REQUEST_FILENAME} -d' \
+            'RewriteRule ^ - [L]' \
+            '' \
+            'RewriteRule ^$ /index.html [L]' \
+            'RewriteRule ^contato/?$ /contato/index.html [L]' \
+            'RewriteRule ^pecas/?$ /pecas/index.html [L]' \
+            'RewriteRule ^sobre/?$ /sobre/index.html [L]' \
+            'RewriteRule ^categoria/escadas/?$ /categoria/escadas/index.html [L]' \
+            'RewriteRule ^categoria/esteiras/?$ /categoria/esteiras/index.html [L]' \
+            'RewriteRule ^categoria/elevadores/?$ /categoria/elevadores/index.html [L]' \
+            'RewriteRule ^categoria/projetos/?$ /categoria/projetos/index.html [L]' \
+            'RewriteRule ^projeto/.+$ /index.html [L]' \
+            'RewriteRule ^(.*)$ /index.html [L]' \
+            > deploy/.htaccess
           echo "Deploy folder ready:"; find deploy -type f | wc -l
 
       - name: Create ZIP
