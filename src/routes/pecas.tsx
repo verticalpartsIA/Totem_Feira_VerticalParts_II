@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
-import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
+
+const LOGO = "/images/logo.png";
 
 export const Route = createFileRoute("/pecas")({
   head: () => ({
@@ -21,52 +22,61 @@ const driveUrl = (id: string, w = 1200) =>
   `https://lh3.googleusercontent.com/d/${id}=w${w}`;
 
 const FOTOS_IDS: string[] = [
-  "1doJ-ejXCqpEFfSKBhOH31EF4CPEVp-Gh",
-  "1FSm9oJyjf_57lMxsUlUvaEkyVNdNwMpm",
-  "1e1sFPoviDwp0yuiWg-wIfXsPUBdqLhnt",
-  "1hH6cw84JPkxQLXx4ffa0OJaC10wmPre5",
-  "1HUNulIBicJkKO8MVmLWqXaSUELXkIdzk",
-  "1A1u2ey4dl8fG7Bf49MGwvYHT2BC0DspP",
-  "1VlScTY7x1I4ROQNyuM9Og2N-dXDFqYvB",
-  "1d6CrKYlLUZiQ2R3KKl4r1QpxI85jBK_G",
-  "1ywSwuvI2vmN-T5cnUiUn1Z0w6MOXFrgq",
-  "1Q6t6Zw8xyf20Dv98UQ6krpDwmZ6vHwKW",
-  "1-iCorYR9I1mRYc5cizuereweEcTSJsm8",
-  "1a4OwDRpOXZWQl-2of_yheCypkEf1d4ep",
-  "1McFI_fDPp_CuE_5QrSTfhtUKeSwI9ANZ",
-  "1Ul_AhTG2lHliGmlPcYMNhTUG_7RuaSqI",
-  "10fiWnOzss8NNgxe2t9KIAwqX0LMWPZVT",
-  "1SVs72tJLhwHZaV-QPmDMZ5-A43_CakZS",
-  "1zHaYEPVnrf5lHlBTiAIMOBmZKHAmrOo_",
-  "1cpQyllhJwu_CpBeiEFUBvZSX4LSmuD2Q",
-  "1fj3Ibn5c9u0syRv3g2PyzIFsgURn4qXI",
-  "118t-WlQ1FpfD_c4QGB-eYR3v9VcYaDKs",
-  "1ydieRpqSjSY55txbsb58rNgLmB2Dpc2c",
-  "1zP9Qe8TzpZsLU53kgAJ3vxonjDA418L1",
-  "13HvQgTeBjwCN8tUz489fNHAKO8r3wVTG",
-  "1YOaPfvqdtS64DhmGvmbeuCstBS3HosLR",
-  "1Kmtqe4agBkxVVhm4ANLVwmRI2ShfBAWH",
-  "1i0DTP6ILFJLp5p2B8T72UBMR0zm0svIS",
-  "1cWW2bsRey8eSTwS6APNPGLmrdel-AmS8",
-  "1o_T4jryqqOJ9d_AjUAg5_5jhnvmrlk_A",
-  "1yPNc8Ov7iiGG7I5Ujm7tceqbK8WrJElo",
-  "12f6j_D-yD1decUbHy0Qrw01Y9ZPWIKo0",
-  "1Qd_hpx3SoZdyBs7V2ODRitRFz17qba8n",
-  "1r2if1he2Pjr_2GB8kYVhkmH9scfVW4IT",
-  "1bOJyTG8Gpmu9xz23PjytdijlBsEQpVVu",
-  "1WGtp76yq8tSmKOzIk4gCTmWgBsdfjOKk",
-  "1zMoz06ZF8Gdxh3iECz1jhDOAuGgORoI8",
-  "1EzZT3f_mcJoYKUutCcNNgEOq2aSwOBbM",
-  "1RtJ8lk6Nxg3hl0DfKfoch8Rms_bjWufw",
-  "1i95xQ1PQPKt8J-s8Eipm2kZe1UOMRo8H",
-  "1806smPfDOJiKZt3hKeFcjCQ-xGlYTBzf",
-  "11lkOvZ6R5yC1FrPoHdSmMtGJPsBvWvJE",
-  "1ap37iMGfhOewYOF53b1IiHXCdqor5xI4",
-  "1UPzTGeiCN3so5oPvkZCRHbhyaM1zq3XP",
-  "1bWJvpvGzS_MpIiin1GZ_s4C1RIxoR2p8",
-  "1rK8Cb1jQjuJr4pT_hJpfEAH16T4QQN00",
-  "1UbANkr3pEL9xaEXEM_U1o8v7an3I7Jld",
-  "1KniAdon3A43-vciQH8evp2uivEi8Jy8F",
+  "1mOlrQ1EYP_tc_uzA6YmU5lvBK5EbS8M5",
+  "1x39JR-Y4Wfl_NReWRJiZWX10SGSGQp8F",
+  "1dyd7j6ub_LNs4LNwskvNJtsUgnx-iK2w",
+  "1P9S6zo9Mqtghtz21N0gnu7kauAj6bhew",
+  "1BxQGAgtJcMrTIRi7bPg-bPA8A7gwu5DN",
+  "10A8bY_n77Nd4KIzgZMp4tfa5X3OpgUJH",
+  "1IVe6FBSL2jg8z-wlIIcGT6Hz3oAKZ632",
+  "1FXh2eM1kNdGzt7ym27CfKKZ01mDHJmSK",
+  "1Zs2G0PwnCk7M2_B_8f4P36QkWB-ldSDY",
+  "11yT8keVg3yLmfph9PdDOdBV6aEAFHzFQ",
+  "1uCb-IpBlL3ynaCgD1DRdc5-MICNn6svN",
+  "1xvqqRM80xjIloJQnWENTmkh2slsM9qj7",
+  "1-yZ0_qf1DGeYPb7pe3pbxhr405R1y0MG",
+  "1XOklaQ3T-q24IqPcbWOGFDfIE-RKb4OK",
+  "1Ufb_iS36oqmsO3fHm6FIaoCfC5C5ZHi4",
+  "1XfTEHNo66OYNciViqnyzov2HCZ-p7Ueg",
+  "1DWXef3gvRkTXRxSpaP_pQuhkt5FE83NH",
+  "1iYyAnkohCcCZTZNUrRUrwPiLsiA3Ubqg",
+  "1SV2dPclDXteKyy4hG6-6BbxXiEWF0_7x",
+  "17FeqPZ0_GDddjJeNaKFdY4sRSKeMcrpf",
+  "1h-ewagWF0TBuyYPKTGZlXffQkfTlQEBL",
+  "1z__b2dI-0qcE9HO98nG9xu6-HCaajnq3",
+  "1vfN799edyRpJAFY6M5eLL0zV6Z44dffL",
+  "11xpWL7KKrc8FdEwPQb290ITYRe_BRo7_",
+  "1Jb6wVa-AExhwl681tqVnQi58FmwCBKr3",
+  "1E7CzZK5i26a3sAn-gxojsWK7i_3f47wU",
+  "1fvkloqkItd2NoXAOPSvey9vvt72TFB9j",
+  "1fu4_tP2KlgRTjGZI3i44xQP2ILHWsbkh",
+  "1xrZePqQEfVtkdKWGwbHZBjIxeLDez5eV",
+  "14n3QIWcmBxzhB7PxpgOe4bx6dbJDEQQm",
+  "1wTXxmWCRPvxMMbIlzgU-lbCZimt0kCJI",
+  "10OHR0zaD_ScZo9QRi83Bj44N-HH0CIts",
+  "1dAfP3ukY94zqZ6K1mDCF7btD2l95_nAh",
+  "1iUTXPu8VzP6psJX840-FY_xOfJZtar1x",
+  "1FksJAvsuV8N2mOZLyFu_3gDNA7x1KsQo",
+  "1_RfvYN05VgeGNXulpexjHd8d65iAF8nZ",
+  "1LWc4fJFQtIz50o9CccjP4hbLk1XKgR95",
+  "1-AgJJFmbhwjkJSgPhgjlRBRhV-gDALc2",
+  "1JpwGmO7cKc5Do99Tmbz8OKi3DcduS4G7",
+  "1rQ6SIIpj37kfoQLRdXnXJuAYcxT6BFeZ",
+  "1x4K5S2M-Qt7MItbGYgYEuSW-qBraHLH5",
+  "1kv6eh4SL5Rw6PNJNHj6LoMWzZixKkKpC",
+  "1ReoJI5-47MVnxEKmSwuF8pZKLcvwg7_w",
+  "1ObV5lcoSF_wsjT8Q2-5m5KR-aQ8K5xe9",
+  "1Gg1smRaA404PbaD_aXlQvOBdosNlGITT",
+  "1TYLTaR9XKAuyIyxAObL0uL6mTgT7c-84",
+  "1N2HWPlctORflJGu_DngU3phBsZ5NyGDV",
+  "1qW8TcOmvW3oYLvzI0YgGe0n7G3GwxDxJ",
+  "18TKy1GTEvVIazN3dhQx-ixQEj4HszKcE",
+  "1y-cZnMcc2xKnMlX-_uGcLXK9wDwd6Z7X",
+  "1s0MqI133gSPAyh4xkDIcTneHTTKNTpUd",
+  "1CauXL07lStvmMyWj0e_TJtRTzr0lLjVi",
+  "1H5vGeV3ms1nBZyffiERrsk4rqi__sDXT",
+  "1A0OCzEztKo7yO1WpJ8klXZy1dl3uIPWg",
+  "1S1STQS32mVqMBQLz6qmzFztpXAoZs59X",
 ];
 
 function PecasPage() {
@@ -84,7 +94,7 @@ function PecasPage() {
             <ChevronLeft className="h-6 w-6" />
             <span className="text-sm">Início</span>
           </Link>
-          <img src={logoAsset.url} alt="VerticalParts" className="h-9 w-auto" />
+          <img src={LOGO} alt="VerticalParts" className="h-9 w-auto" />
         </header>
 
         <div className="px-2 mb-4">

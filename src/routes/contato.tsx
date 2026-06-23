@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { QRCodeSVG } from "qrcode.react";
 import { ChevronLeft, Globe, Instagram, MessageCircle } from "lucide-react";
-import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 import { CONTATOS } from "@/lib/clientes";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
+
+const LOGO = "/images/logo.png";
 
 export const Route = createFileRoute("/contato")({
   component: ContatoPage,
@@ -52,7 +53,7 @@ function ContatoPage() {
             <ChevronLeft className="h-6 w-6" />
             <span className="text-sm">Início</span>
           </Link>
-          <img src={logoAsset.url} alt="VerticalParts" className="h-10 w-auto" />
+          <img src={LOGO} alt="VerticalParts" className="h-10 w-auto" />
         </header>
 
         <div className="mb-8">

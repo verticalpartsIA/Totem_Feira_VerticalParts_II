@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
-import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 import heroImg from "@/assets/hero-escalator.jpg";
 import {
   CATEGORIAS,
@@ -10,6 +9,7 @@ import {
 } from "@/lib/clientes";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
 
+const LOGO = "/images/logo.png";
 const VALID = ["escadas", "esteiras", "elevadores", "projetos"] as const;
 
 export const Route = createFileRoute("/categoria/$slug")({
@@ -51,7 +51,7 @@ function CategoriaPage() {
               <ChevronLeft className="h-6 w-6" />
               <span className="text-sm">Voltar</span>
             </Link>
-            <img src={logoAsset.url} alt="VerticalParts" className="h-10 w-auto" />
+            <img src={LOGO} alt="VerticalParts" className="h-10 w-auto" />
           </header>
 
           <div className="mb-8">

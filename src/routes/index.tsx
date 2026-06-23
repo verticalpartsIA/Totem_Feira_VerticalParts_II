@@ -1,12 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-escalator.jpg";
-import escadaAsset from "@/assets/escada-rolante.png.asset.json";
-import esteiraImg from "@/assets/esteira-rolante.jpg";
-import elevadorImg from "@/assets/elevador.jpg";
-import projetosImg from "@/assets/projetos.jpg";
-import pecasAsset from "@/assets/pecas.png.asset.json";
-import sobreAsset from "@/assets/sobre.png.asset.json";
-import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
+
+const LOGO = "/images/logo.png";
+const driveBtn = (id: string) => `https://lh3.googleusercontent.com/d/${id}=w800`;
+
+const BTN_ESCADA   = driveBtn("1fsf_z_443RjFbihScFOpYxtIxET37i5D");
+const BTN_ESTEIRA  = driveBtn("1lUem9Lsp9ZGQGbkNVO-n3GDVgtypbzOU");
+const BTN_ELEVADOR = driveBtn("10z72F0-524YCafAqldQ6O_KqHI4iJ-Cx");
+const BTN_PROJETOS = driveBtn("19EyP4qJbN9d1tCkq_6-a06mszM2n5LG-");
+const BTN_PECAS    = driveBtn("12dKZs2BcE4qJpadM_pjx8X909mxkHbDL");
+const BTN_SOBRE    = driveBtn("10UF_ZL6Mbcnx2sAErW5Tvn3_jF2Q2axz");
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,19 +45,18 @@ type Item =
     };
 
 const items: Item[] = [
-  { label: "Escadas\nRolante", image: escadaAsset.url, to: "/categoria/$slug", params: { slug: "escadas" } },
-  { label: "Esteiras\nRolante", image: esteiraImg, to: "/categoria/$slug", params: { slug: "esteiras" } },
-  { label: "Elevadores", image: elevadorImg, to: "/categoria/$slug", params: { slug: "elevadores" } },
-  { label: "Projetos\nEspeciais", image: projetosImg, to: "/categoria/$slug", params: { slug: "projetos" } },
-  { label: "Peças Elevadores,\nEscadas e Esteiras", image: pecasAsset.url, to: "/pecas" },
-  { label: "Sobre a\nVerticalParts", image: sobreAsset.url, to: "/sobre" },
+  { label: "Escadas\nRolante",                image: BTN_ESCADA,   to: "/categoria/$slug", params: { slug: "escadas" } },
+  { label: "Esteiras\nRolante",               image: BTN_ESTEIRA,  to: "/categoria/$slug", params: { slug: "esteiras" } },
+  { label: "Elevadores",                      image: BTN_ELEVADOR, to: "/categoria/$slug", params: { slug: "elevadores" } },
+  { label: "Projetos\nEspeciais",             image: BTN_PROJETOS, to: "/categoria/$slug", params: { slug: "projetos" } },
+  { label: "Peças Elevadores,\nEscadas e Esteiras", image: BTN_PECAS, to: "/pecas" },
+  { label: "Sobre a\nVerticalParts",          image: BTN_SOBRE,    to: "/sobre" },
 ];
 
 function Index() {
   return (
     <main className="min-h-screen w-full bg-background flex justify-center">
       <div className="relative w-full max-w-md min-h-screen overflow-hidden shadow-2xl">
-        {/* Hero background */}
         <img
           src={heroImg}
           alt="Escadas rolantes em centro comercial moderno"
@@ -62,12 +64,10 @@ function Index() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/55 to-background/85" />
 
-        {/* Content */}
         <div className="relative flex flex-col items-center px-6 pt-10 pb-12">
-          {/* Logo */}
           <header className="mb-8 w-full flex justify-center">
             <img
-              src={logoAsset.url}
+              src={LOGO}
               alt="VerticalParts"
               className="h-16 w-auto drop-shadow-lg"
             />
@@ -77,7 +77,6 @@ function Index() {
             Toque em uma categoria para conhecer nossos projetos
           </p>
 
-          {/* Menu */}
           <nav className="w-full flex flex-col gap-6">
             {items.map((item) => {
               const linkProps =
@@ -110,4 +109,3 @@ function Index() {
     </main>
   );
 }
-

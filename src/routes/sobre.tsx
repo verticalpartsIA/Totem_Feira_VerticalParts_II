@@ -6,9 +6,10 @@ import {
   Boxes,
   Handshake,
 } from "lucide-react";
-import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
-import sobreAsset from "@/assets/sobre.png.asset.json";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
+
+const LOGO = "/images/logo.png";
+const SOBRE_HERO = `https://lh3.googleusercontent.com/d/10UF_ZL6Mbcnx2sAErW5Tvn3_jF2Q2axz=w800`;
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({
@@ -66,12 +67,12 @@ function SobrePage() {
             <ChevronLeft className="h-6 w-6" />
             <span className="text-sm">Início</span>
           </Link>
-          <img src={logoAsset.url} alt="VerticalParts" className="h-10 w-auto" />
+          <img src={LOGO} alt="VerticalParts" className="h-10 w-auto" />
         </header>
 
         <div className="rounded-3xl overflow-hidden mb-6 shadow-xl ring-1 ring-foreground/10">
           <img
-            src={sobreAsset.url}
+            src={SOBRE_HERO}
             alt="VerticalParts"
             className="w-full h-56 object-cover"
           />

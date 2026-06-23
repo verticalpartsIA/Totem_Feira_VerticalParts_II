@@ -3,9 +3,10 @@ import { ChevronLeft } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { z } from "zod";
-import logoAsset from "@/assets/logo-verticalparts-white.png.asset.json";
 import { getProjeto, getFotos } from "@/lib/clientes";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
+
+const LOGO = "/images/logo.png";
 
 const searchSchema = z.object({
   from: z
@@ -62,7 +63,6 @@ function ProjetoPage() {
   return (
     <main className="min-h-screen w-full bg-background flex justify-center">
       <div className="relative w-full max-w-md min-h-screen overflow-hidden flex flex-col">
-        {/* Header */}
         <header className="relative z-10 flex items-center justify-between px-6 pt-6 pb-4">
           <Link
             {...backTo}
@@ -72,7 +72,7 @@ function ProjetoPage() {
             <ChevronLeft className="h-6 w-6" />
             <span className="text-sm">Voltar</span>
           </Link>
-          <img src={logoAsset.url} alt="VerticalParts" className="h-9 w-auto" />
+          <img src={LOGO} alt="VerticalParts" className="h-9 w-auto" />
         </header>
 
         <div className="px-6 pb-4">
@@ -87,7 +87,6 @@ function ProjetoPage() {
           ) : null}
         </div>
 
-        {/* Carrossel */}
         <div className="relative flex-1 flex flex-col">
           <div className="overflow-hidden flex-1" ref={emblaRef}>
             <div className="flex h-full">
@@ -121,7 +120,6 @@ function ProjetoPage() {
             </div>
           </div>
 
-          {/* Dots + setas */}
           <div className="flex items-center justify-center gap-4 py-4">
             <button
               type="button"
@@ -154,7 +152,6 @@ function ProjetoPage() {
           </div>
         </div>
 
-        {/* CTA Fale Conosco */}
         <div className="px-6 pb-6">
           <button
             type="button"
