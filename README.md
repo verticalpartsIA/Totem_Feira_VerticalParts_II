@@ -121,3 +121,13 @@ npm run dev        # http://localhost:8080
 ## Licença
 
 Projeto proprietário — © 2026 VerticalParts. Todos os direitos reservados.
+
+---
+
+## Contributors
+
+- Gelson Simões — criador e responsável pelas soluções VerticalParts
+
+---
+
+**Feito por Gelson Simões**
