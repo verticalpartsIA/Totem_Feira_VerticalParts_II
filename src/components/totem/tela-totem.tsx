@@ -1,4 +1,5 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 import { useIdleRedirect } from "@/hooks/use-idle-redirect";
 
@@ -68,5 +69,21 @@ export function TelaTotem({ src, alt, hotspots = [], idleMs = 45_000, children }
         {children}
       </div>
     </main>
+  );
+}
+
+/** "Voltar" visível para telas cuja arte não traz o botão (ex.: QR code). */
+export function BotaoVoltar({ fallback = "/" }: { fallback?: string }) {
+  const router = useRouter();
+  return (
+    <button
+      type="button"
+      onClick={() =>
+        router.history.canGoBack() ? router.history.back() : router.navigate({ to: fallback })
+      }
+      className="absolute bottom-[3.5%] left-[4%] flex items-center gap-2 rounded-full border-2 border-white/70 px-5 py-2.5 text-lg text-white/90 active:bg-white/20"
+    >
+      <ArrowLeft className="h-6 w-6" /> Voltar
+    </button>
   );
 }

@@ -12,7 +12,7 @@ function Bst() {
       src="/images/totem/tela-6.jpg"
       alt="Consultar linha BST Monarch"
       hotspots={[
-        spot("Consultar linha BST Monarch", "/bst-info", [35, 98, 300, 168]),
+        spot("Consultar linha BST Monarch", "/bst-info", [35, 98, 335, 548]),
         spot("Voltar", "/", VOLTAR_ESQ),
       ]}
     />
