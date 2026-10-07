@@ -11,6 +11,8 @@ export type Hotspot = {
   y: number;
   w: number;
   h: number;
+  /** Destaca a área com um anel pulsante para indicar que é tocável. */
+  dica?: boolean;
 };
 
 type Props = {
@@ -26,7 +28,9 @@ export const spot = (
   label: string,
   to: string,
   [x1, y1, x2, y2]: [number, number, number, number],
+  dica = false,
 ): Hotspot => ({
+  dica,
   label,
   to,
   x: (x1 / 335) * 100,
@@ -57,7 +61,7 @@ export function TelaTotem({ src, alt, hotspots = [], idleMs = 45_000, children }
             key={h.label}
             to={h.to}
             aria-label={h.label}
-            className="absolute rounded-2xl transition-colors active:bg-white/20"
+            className={`absolute rounded-2xl transition-colors active:bg-white/20${h.dica ? " totem-dica" : ""}`}
             style={{
               left: `${h.x}%`,
               top: `${h.y}%`,

@@ -21,8 +21,8 @@ function BoasVindas() {
       src="/images/totem/tela-1.jpg"
       alt="Bem-vindo à VerticalParts"
       hotspots={[
-        spot("Peças e equipamentos", "/portfolio", [38, 208, 205, 288]),
-        spot("Linha BST Monarch", "/bst", [38, 292, 205, 390]),
+        spot("Peças e equipamentos", "/portfolio", [30, 206, 208, 305], true),
+        spot("Linha BST Monarch", "/bst", [30, 309, 208, 392], true),
       ]}
     />
   );
