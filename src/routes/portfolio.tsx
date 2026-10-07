@@ -14,7 +14,7 @@ function Portfolio() {
       hotspots={[
         spot("Peças para escadas e esteiras rolantes", "/escadas", [62, 165, 310, 285]),
         spot("Peças para elevadores", "/elevadores", [62, 295, 310, 412]),
-        spot("Equipamentos", "/escadas", [42, 428, 310, 545]),
+        spot("Equipamentos", "/elevadores", [42, 428, 310, 545]),
         spot("Voltar", "/", VOLTAR_ESQ),
       ]}
     />
