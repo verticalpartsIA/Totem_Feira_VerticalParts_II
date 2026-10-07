@@ -1,0 +1,6 @@
+Imagens esperadas pelo totem (jpg/png):
+bem-vindo-1.jpg .. bem-vindo-4.jpg  (faixa lateral da tela inicial)
+revenda-fundo.jpg, revenda-escadas.jpg, revenda-elevadores.jpg, revenda-equipamentos.jpg
+elev-carga.jpg, elev-homelift.jpg, elev-passageiro.jpg, elev-automovel.jpg
+escada-rolante.jpg, esteira-rolante.jpg
+bst-painel.jpg, bst-produtos.png, bst-monarch-logo.png

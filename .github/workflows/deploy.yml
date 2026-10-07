@@ -25,17 +25,12 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Pre-render HTML (8 rotas)
-        run: bun run temp-prerender.mjs
-
       - name: Prepare deploy folder
         run: |
-          mkdir -p deploy/assets
-          cp dist/client/assets/* deploy/assets/
-          if [ -d public/images ]; then
-            cp public/images/* deploy/assets/
-          fi
-          cp -r static-output/* deploy/
+          mkdir -p deploy
+          cp -r dist/client/* deploy/
+          cp deploy/_shell.html deploy/index.html
+          mkdir -p deploy/images && cp -r public/images/* deploy/images/ 2>/dev/null || true
           printf '%s\n' \
             'Options -MultiViews' \
             'RewriteEngine On' \
@@ -46,14 +41,6 @@ jobs:
             'RewriteRule ^ - [L]' \
             '' \
             'RewriteRule ^$ /index.html [L]' \
-            'RewriteRule ^contato/?$ /contato/index.html [L]' \
-            'RewriteRule ^pecas/?$ /pecas/index.html [L]' \
-            'RewriteRule ^sobre/?$ /sobre/index.html [L]' \
-            'RewriteRule ^categoria/escadas/?$ /categoria/escadas/index.html [L]' \
-            'RewriteRule ^categoria/esteiras/?$ /categoria/esteiras/index.html [L]' \
-            'RewriteRule ^categoria/elevadores/?$ /categoria/elevadores/index.html [L]' \
-            'RewriteRule ^categoria/projetos/?$ /categoria/projetos/index.html [L]' \
-            'RewriteRule ^projeto/.+$ /index.html [L]' \
             'RewriteRule ^(.*)$ /index.html [L]' \
             > deploy/.htaccess
           echo "Deploy folder ready:"; find deploy -type f | wc -l

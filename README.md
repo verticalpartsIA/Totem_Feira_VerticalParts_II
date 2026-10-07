@@ -45,10 +45,8 @@ O sistema foi projetado para uso autônomo: sem teclado, sem mouse, apenas toque
 A Hostinger usa **Apache shared hosting** (sem Node.js). O deploy é feito via pre-render estático manual:
 
 ```
-npm run build          → dist/server/server.js  (Cloudflare Workers handler)
-node temp-prerender.mjs → static-output/          (8 rotas pré-renderizadas)
-[patch assets]         → deploy/                  (JS bundles com URLs locais)
-unzip no servidor      → public_html/             (Apache serve)
+bun run build  → dist/client (SPA estático, _shell.html vira index.html)
+GitHub Actions → zip + SCP + unzip em public_html/ (push na main)
 ```
 
 Ver [`DEPLOY_CONTEXT.md`](./DEPLOY_CONTEXT.md) para instruções completas.
@@ -57,17 +55,18 @@ Ver [`DEPLOY_CONTEXT.md`](./DEPLOY_CONTEXT.md) para instruções completas.
 
 ## Rotas
 
-| Rota | Descrição |
-|------|-----------|
-| `/` | Tela inicial — menu de categorias |
-| `/categoria/escadas` | Projetos de escadas rolantes |
-| `/categoria/esteiras` | Projetos de esteiras rolantes |
-| `/categoria/elevadores` | Projetos de elevadores |
-| `/categoria/projetos` | Projetos especiais |
-| `/projeto/:slug` | Detalhes e galeria do projeto |
-| `/pecas` | Catálogo de peças |
-| `/sobre` | Institucional |
-| `/contato` | Contato e QR Code |
+| Rota | Tela do Canva |
+|------|---------------|
+| `/` | Boas-vindas |
+| `/revenda` | Amplie seu portfólio de revenda |
+| `/elevadores` | Elevadores (carga, homelift, passageiro, automóvel) |
+| `/escadas` | Escadas & esteiras rolantes |
+| `/equipamentos` | QR — fornecemos e instalamos equipamentos |
+| `/bst-monarch` | Consultar linha BST Monarch |
+| `/bst-linha` | Detalhe BST Monarch |
+| `/contato` | QR WhatsApp — "Quero construir uma parceria" |
+
+Design de referência: Canva "TOTEM" (DAHW3083bfw). Imagens em `public/images/totem/`.
 
 ---
 
