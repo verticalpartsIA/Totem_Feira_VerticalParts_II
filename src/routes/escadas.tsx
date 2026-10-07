@@ -12,6 +12,8 @@ function Escadas() {
       src="/images/totem/tela-4.jpg"
       alt="Escadas e esteiras rolantes"
       hotspots={[
+        spot("Escada rolante", "/galeria/escada-rolante", [47, 145, 288, 308]),
+        spot("Esteira rolante", "/galeria/esteira-rolante", [47, 335, 288, 496]),
         spot("Quero construir uma parceria", "/contato", [75, 518, 266, 550]),
         spot("Voltar", "/portfolio", VOLTAR_ESQ),
       ]}

@@ -17,6 +17,7 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as BstInfoRouteImport } from './routes/bst-info'
 import { Route as BstRouteImport } from './routes/bst'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GaleriaSlugRouteImport } from './routes/galeria.$slug'
 
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
@@ -58,6 +59,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GaleriaSlugRoute = GaleriaSlugRouteImport.update({
+  id: '/galeria/$slug',
+  path: '/galeria/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/elevadores': typeof ElevadoresRoute
   '/escadas': typeof EscadasRoute
   '/portfolio': typeof PortfolioRoute
+  '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/elevadores': typeof ElevadoresRoute
   '/escadas': typeof EscadasRoute
   '/portfolio': typeof PortfolioRoute
+  '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/elevadores': typeof ElevadoresRoute
   '/escadas': typeof EscadasRoute
   '/portfolio': typeof PortfolioRoute
+  '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/elevadores'
     | '/escadas'
     | '/portfolio'
+    | '/galeria/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/elevadores'
     | '/escadas'
     | '/portfolio'
+    | '/galeria/$slug'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/elevadores'
     | '/escadas'
     | '/portfolio'
+    | '/galeria/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   ElevadoresRoute: typeof ElevadoresRoute
   EscadasRoute: typeof EscadasRoute
   PortfolioRoute: typeof PortfolioRoute
+  GaleriaSlugRoute: typeof GaleriaSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/galeria/$slug': {
+      id: '/galeria/$slug'
+      path: '/galeria/$slug'
+      fullPath: '/galeria/$slug'
+      preLoaderRoute: typeof GaleriaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   ElevadoresRoute: ElevadoresRoute,
   EscadasRoute: EscadasRoute,
   PortfolioRoute: PortfolioRoute,
+  GaleriaSlugRoute: GaleriaSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
