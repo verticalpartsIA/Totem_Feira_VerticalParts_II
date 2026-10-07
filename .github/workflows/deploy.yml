@@ -22,20 +22,17 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build
+      - name: Build (SPA estático)
         run: bun run build
-
-      - name: Pre-render HTML (8 rotas)
-        run: bun run temp-prerender.mjs
 
       - name: Prepare deploy folder
         run: |
-          mkdir -p deploy/assets
-          cp dist/client/assets/* deploy/assets/
-          if [ -d public/images ]; then
-            cp public/images/* deploy/assets/
-          fi
-          cp -r static-output/* deploy/
+          set -e
+          test -f dist/client/_shell.html
+          mkdir -p deploy
+          cp -r dist/client/. deploy/
+          # O Apache serve o shell do SPA como index.html
+          mv deploy/_shell.html deploy/index.html
           printf '%s\n' \
             'Options -MultiViews' \
             'RewriteEngine On' \
@@ -45,16 +42,7 @@ jobs:
             'RewriteCond %{REQUEST_FILENAME} -d' \
             'RewriteRule ^ - [L]' \
             '' \
-            'RewriteRule ^$ /index.html [L]' \
-            'RewriteRule ^contato/?$ /contato/index.html [L]' \
-            'RewriteRule ^pecas/?$ /pecas/index.html [L]' \
-            'RewriteRule ^sobre/?$ /sobre/index.html [L]' \
-            'RewriteRule ^categoria/escadas/?$ /categoria/escadas/index.html [L]' \
-            'RewriteRule ^categoria/esteiras/?$ /categoria/esteiras/index.html [L]' \
-            'RewriteRule ^categoria/elevadores/?$ /categoria/elevadores/index.html [L]' \
-            'RewriteRule ^categoria/projetos/?$ /categoria/projetos/index.html [L]' \
-            'RewriteRule ^projeto/.+$ /index.html [L]' \
-            'RewriteRule ^(.*)$ /index.html [L]' \
+            'RewriteRule ^ /index.html [L]' \
             > deploy/.htaccess
           echo "Deploy folder ready:"; find deploy -type f | wc -l
 
@@ -80,11 +68,18 @@ jobs:
           password: ${{ secrets.HOSTINGER_PASSWORD }}
           script: |
             set -e
-            PUBDIR=~/domains/interativo.vpsistema.com/public_html
-            ZIPFILE=~/domains/interativo.vpsistema.com/deploy.zip
-            cp $PUBDIR/index.html $PUBDIR/../index.html.bak 2>/dev/null || true
+            BASE=~/domains/interativo.vpsistema.com
+            PUBDIR=$BASE/public_html
+            ZIPFILE=$BASE/deploy.zip
+            STAGE=$BASE/deploy_staging
+            # Extrai primeiro num diretório temporário: se o ZIP estiver
+            # corrompido, o site no ar não é apagado.
+            rm -rf $STAGE && mkdir -p $STAGE
+            unzip -q $ZIPFILE -d $STAGE
+            test -f $STAGE/index.html
+            cp $PUBDIR/index.html $BASE/index.html.bak 2>/dev/null || true
             find $PUBDIR -mindepth 1 -delete
-            unzip -q $ZIPFILE -d $PUBDIR
-            rm $ZIPFILE
+            cp -a $STAGE/. $PUBDIR/
+            rm -rf $STAGE $ZIPFILE
             echo "Deploy concluido: $(date)"
             ls $PUBDIR
