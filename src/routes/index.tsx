@@ -21,8 +21,11 @@ function BoasVindas() {
       src="/images/totem/tela-1.jpg"
       alt="Bem-vindo à VerticalParts"
       hotspots={[
-        spot("Peças e equipamentos", "/portfolio", [30, 206, 208, 305], true),
-        spot("Linha BST Monarch", "/bst", [30, 309, 208, 392], true),
+        // o cartão inteiro continua tocável, mas a dica visual fica só nas setinhas da arte
+        spot("Peças e equipamentos", "/portfolio", [30, 206, 208, 305]),
+        spot("Linha BST Monarch", "/bst", [30, 309, 208, 392]),
+        spot("Peças e equipamentos (seta)", "/portfolio", [34, 227, 64, 257], true),
+        spot("Linha BST Monarch (seta)", "/bst", [34, 309, 64, 339], true),
       ]}
     />
   );
