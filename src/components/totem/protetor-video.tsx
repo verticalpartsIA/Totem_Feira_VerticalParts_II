@@ -10,23 +10,21 @@ export function ProtetorVideo() {
   const navigate = useNavigate();
   const [ativo, setAtivo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const ativoRef = useRef(false);
 
+  // fecha o vídeo e volta à tela principal; o relógio de ociosidade recomeça sozinho
   const fechar = useCallback(() => {
-    ativoRef.current = false;
     setAtivo(false);
     navigate({ to: "/" });
   }, [navigate]);
 
+  // Ocioso por 1 min → vídeo. Ao terminar o vídeo → tela principal → mais 1 min → vídeo de novo,
+  // em ciclo, até alguém tocar na tela (o toque durante o vídeo também fecha e volta à principal).
   useEffect(() => {
+    if (ativo) return;
     let timer: ReturnType<typeof setTimeout>;
     const reiniciar = () => {
-      if (ativoRef.current) return; // com o vídeo ativo, só o toque (onPointerDown) fecha
       clearTimeout(timer);
-      timer = setTimeout(() => {
-        ativoRef.current = true;
-        setAtivo(true);
-      }, OCIOSO_MS);
+      timer = setTimeout(() => setAtivo(true), OCIOSO_MS);
     };
     EVENTOS.forEach((e) => window.addEventListener(e, reiniciar, { passive: true }));
     reiniciar();
@@ -34,7 +32,7 @@ export function ProtetorVideo() {
       clearTimeout(timer);
       EVENTOS.forEach((e) => window.removeEventListener(e, reiniciar));
     };
-  }, []);
+  }, [ativo]);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -54,7 +52,7 @@ export function ProtetorVideo() {
       <video
         ref={videoRef}
         src="/video/feira.mp4"
-        loop
+        onEnded={fechar}
         playsInline
         className="h-full max-h-screen bg-black object-contain"
         style={{ aspectRatio: "9 / 16", maxWidth: "100vw" }}
