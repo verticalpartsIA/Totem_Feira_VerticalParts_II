@@ -51,7 +51,7 @@ export function ProtetorVideo() {
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black" onPointerDown={fechar}>
       <video
         ref={videoRef}
-        src="/video/feira.mp4"
+        src="/video/feira.mp4?v=2"
         onEnded={fechar}
         playsInline
         className="h-full max-h-screen bg-black object-contain"

@@ -15,4 +15,4 @@ export const GALERIAS: Record<string, Galeria> = {
 };
 
 export const fotosDaGaleria = (slug: string, total: number) =>
-  Array.from({ length: total }, (_, i) => `/images/galeria/${slug}/${String(i + 1).padStart(2, "0")}.jpg`);
+  Array.from({ length: total }, (_, i) => `/images/galeria/${slug}/${String(i + 1).padStart(2, "0")}.jpg?v=2`);
