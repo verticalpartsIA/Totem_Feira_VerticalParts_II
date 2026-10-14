@@ -17,6 +17,7 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as BstMonarchRouteImport } from './routes/bst-monarch'
 import { Route as BstLinhaRouteImport } from './routes/bst-linha'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as GaleriaSlugRouteImport } from './routes/galeria.$slug'
 
 const RevendaRoute = RevendaRouteImport.update({
   id: '/revenda',
@@ -58,6 +59,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GaleriaSlugRoute = GaleriaSlugRouteImport.update({
+  id: '/galeria/$slug',
+  path: '/galeria/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/equipamentos': typeof EquipamentosRoute
   '/escadas': typeof EscadasRoute
   '/revenda': typeof RevendaRoute
+  '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/equipamentos': typeof EquipamentosRoute
   '/escadas': typeof EscadasRoute
   '/revenda': typeof RevendaRoute
+  '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/equipamentos': typeof EquipamentosRoute
   '/escadas': typeof EscadasRoute
   '/revenda': typeof RevendaRoute
+  '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/equipamentos'
     | '/escadas'
     | '/revenda'
+    | '/galeria/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/equipamentos'
     | '/escadas'
     | '/revenda'
+    | '/galeria/$slug'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/equipamentos'
     | '/escadas'
     | '/revenda'
+    | '/galeria/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   EquipamentosRoute: typeof EquipamentosRoute
   EscadasRoute: typeof EscadasRoute
   RevendaRoute: typeof RevendaRoute
+  GaleriaSlugRoute: typeof GaleriaSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/galeria/$slug': {
+      id: '/galeria/$slug'
+      path: '/galeria/$slug'
+      fullPath: '/galeria/$slug'
+      preLoaderRoute: typeof GaleriaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   EquipamentosRoute: EquipamentosRoute,
   EscadasRoute: EscadasRoute,
   RevendaRoute: RevendaRoute,
+  GaleriaSlugRoute: GaleriaSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
