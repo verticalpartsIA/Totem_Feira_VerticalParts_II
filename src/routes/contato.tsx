@@ -1,6 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { QrScreen } from "@/components/totem/QrScreen";
+import { TelaTotem, BotaoVoltar } from "@/components/totem/tela-totem";
 
 export const Route = createFileRoute("/contato")({
-  component: () => <QrScreen mensagem="Tenha um fornecedor para suas próximas manutenções!" />,
+  head: () => ({ meta: [{ title: "VerticalParts — Fale conosco" }] }),
+  component: Contato,
 });
+
+function Contato() {
+  return (
+    <TelaTotem
+      src="/images/totem/tela-5.jpg"
+      alt="Escaneie o QR code e fale conosco"
+    >
+      <BotaoVoltar fallback="/portfolio" />
+    </TelaTotem>
+  );
+}

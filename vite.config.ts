@@ -1,10 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import tsConfigPaths from 'vite-tsconfig-paths'
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsConfigPaths from "vite-tsconfig-paths";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 
-// Hostinger = Apache estático: build em modo SPA, gera dist/client/index.html
+// Deploy em Apache estático (Hostinger): build em modo SPA, gera um index.html
+// único em dist/client. As rotas são resolvidas no navegador.
 export default defineConfig({
   plugins: [
     tsConfigPaths(),
@@ -12,5 +13,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server: { port: 8080, host: '0.0.0.0', strictPort: true },
-})
+  server: {
+    port: 8080,
+    host: "0.0.0.0",
+    strictPort: true,
+  },
+});

@@ -1,32 +1,25 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { Screen, Foto, BotaoParceria } from "@/components/totem/Screen";
-import { fotoGaleria, type GaleriaSlug } from "@/lib/contatos";
+import { createFileRoute } from "@tanstack/react-router";
+import { TelaTotem, spot, VOLTAR_ESQ } from "@/components/totem/tela-totem";
 
-export const Route = createFileRoute("/elevadores")({ component: Elevadores });
-
-const ITENS: [string, GaleriaSlug][] = [
-  ["Carga", "carga"],
-  ["Homelift", "homelift"],
-  ["Passageiro", "passageiro"],
-  ["Automóvel", "automovel"],
-];
+export const Route = createFileRoute("/elevadores")({
+  head: () => ({ meta: [{ title: "VerticalParts — Elevadores" }] }),
+  component: Elevadores,
+});
 
 function Elevadores() {
   return (
-    <Screen proximo="/escadas">
-      <h1 className="mt-6 rounded-xl border border-brand-yellow px-5 py-1 font-bold uppercase">Elevadores</h1>
-      <div className="mt-5 w-4/5 space-y-3">
-        {ITENS.map(([nome, slug]) => (
-          <Link key={nome} to="/galeria/$slug" params={{ slug }} className="relative block h-28 overflow-hidden rounded-xl active:scale-[0.98]">
-            <Foto src={fotoGaleria(slug, 1)} className="h-full w-full" />
-            <p className="absolute bottom-2 right-3 flex items-center gap-1 font-bold uppercase text-lg drop-shadow">
-              <ArrowRight className="h-6 w-6 text-brand-yellow" /> {nome}
-            </p>
-          </Link>
-        ))}
-      </div>
-      <div className="mt-5"><BotaoParceria /></div>
-    </Screen>
+    <TelaTotem
+      src="/images/totem/tela-3.jpg"
+      alt="Elevadores: carga, homelift, passageiro e automóvel"
+      hotspots={[
+        spot("Elevador de carga", "/galeria/carga", [65, 113, 266, 202]),
+        spot("Homelift", "/galeria/homelift", [65, 214, 266, 302]),
+        spot("Elevador de passageiro", "/galeria/passageiro", [65, 315, 266, 403]),
+        spot("Elevador de automóvel", "/galeria/automovel", [65, 416, 266, 504]),
+        spot("Quero construir uma parceria", "/contato", [75, 518, 266, 550]),
+        spot("Voltar", "/portfolio", VOLTAR_ESQ),
+        spot("Próximo", "/escadas", [238, 556, 325, 590]),
+      ]}
+    />
   );
 }

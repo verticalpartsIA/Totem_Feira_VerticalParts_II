@@ -146,3 +146,25 @@
     color: var(--color-foreground);
   }
 }
+
+/* Indicação de toque nos cartões do totem: anel amarelo que pulsa. */
+@keyframes totem-toque {
+  0% {
+    box-shadow: 0 0 0 0 oklch(0.88 0.18 95 / 0.75);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 22px oklch(0.88 0.18 95 / 0);
+  }
+}
+
+.totem-dica {
+  border: 3px solid oklch(0.88 0.18 95);
+  animation: totem-toque 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .totem-dica {
+    animation: none;
+  }
+}

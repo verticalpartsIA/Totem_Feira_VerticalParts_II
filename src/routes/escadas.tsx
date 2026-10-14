@@ -1,27 +1,22 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import { Screen, Foto, BotaoParceria } from "@/components/totem/Screen";
-import { fotoGaleria } from "@/lib/contatos";
+import { createFileRoute } from "@tanstack/react-router";
+import { TelaTotem, spot, VOLTAR_ESQ } from "@/components/totem/tela-totem";
 
-export const Route = createFileRoute("/escadas")({ component: Escadas });
+export const Route = createFileRoute("/escadas")({
+  head: () => ({ meta: [{ title: "VerticalParts — Escadas e Esteiras Rolantes" }] }),
+  component: Escadas,
+});
 
 function Escadas() {
   return (
-    <Screen>
-      <h1 className="mt-6 rounded-xl border border-brand-yellow px-5 py-1 font-bold uppercase text-center leading-tight">
-        Escadas &amp;<br />Esteiras Rolantes
-      </h1>
-      <div className="mt-6 w-[86%] space-y-5">
-        {([["Escada rolante", "escada-rolante"], ["Esteira rolante", "esteira-rolante"]] as const).map(([nome, slug]) => (
-          <Link key={nome} to="/galeria/$slug" params={{ slug }} className="relative block h-56 overflow-hidden rounded-2xl active:scale-[0.98]">
-            <Foto src={fotoGaleria(slug, 1)} className="h-full w-full" />
-            <p className="absolute bottom-3 right-3 flex items-center gap-1 font-bold uppercase text-lg drop-shadow">
-              <ArrowRight className="h-6 w-6 text-brand-yellow" /> {nome}
-            </p>
-          </Link>
-        ))}
-      </div>
-      <div className="mt-6"><BotaoParceria /></div>
-    </Screen>
+    <TelaTotem
+      src="/images/totem/tela-4.jpg"
+      alt="Escadas e esteiras rolantes"
+      hotspots={[
+        spot("Escada rolante", "/galeria/escada-rolante", [47, 145, 288, 308]),
+        spot("Esteira rolante", "/galeria/esteira-rolante", [47, 335, 288, 496]),
+        spot("Quero construir uma parceria", "/contato", [75, 518, 266, 550]),
+        spot("Voltar", "/portfolio", VOLTAR_ESQ),
+      ]}
+    />
   );
 }

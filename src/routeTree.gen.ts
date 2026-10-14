@@ -9,19 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as RevendaRouteImport } from './routes/revenda'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as EscadasRouteImport } from './routes/escadas'
-import { Route as EquipamentosRouteImport } from './routes/equipamentos'
 import { Route as ElevadoresRouteImport } from './routes/elevadores'
+import { Route as ContatoBstRouteImport } from './routes/contato-bst'
 import { Route as ContatoRouteImport } from './routes/contato'
-import { Route as BstMonarchRouteImport } from './routes/bst-monarch'
-import { Route as BstLinhaRouteImport } from './routes/bst-linha'
+import { Route as BstInfoRouteImport } from './routes/bst-info'
+import { Route as BstRouteImport } from './routes/bst'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as GaleriaSlugRouteImport } from './routes/galeria.$slug'
 
-const RevendaRoute = RevendaRouteImport.update({
-  id: '/revenda',
-  path: '/revenda',
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EscadasRoute = EscadasRouteImport.update({
@@ -29,14 +29,14 @@ const EscadasRoute = EscadasRouteImport.update({
   path: '/escadas',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EquipamentosRoute = EquipamentosRouteImport.update({
-  id: '/equipamentos',
-  path: '/equipamentos',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ElevadoresRoute = ElevadoresRouteImport.update({
   id: '/elevadores',
   path: '/elevadores',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoBstRoute = ContatoBstRouteImport.update({
+  id: '/contato-bst',
+  path: '/contato-bst',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -44,14 +44,14 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BstMonarchRoute = BstMonarchRouteImport.update({
-  id: '/bst-monarch',
-  path: '/bst-monarch',
+const BstInfoRoute = BstInfoRouteImport.update({
+  id: '/bst-info',
+  path: '/bst-info',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BstLinhaRoute = BstLinhaRouteImport.update({
-  id: '/bst-linha',
-  path: '/bst-linha',
+const BstRoute = BstRouteImport.update({
+  id: '/bst',
+  path: '/bst',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -67,93 +67,93 @@ const GaleriaSlugRoute = GaleriaSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/bst-linha': typeof BstLinhaRoute
-  '/bst-monarch': typeof BstMonarchRoute
+  '/bst': typeof BstRoute
+  '/bst-info': typeof BstInfoRoute
   '/contato': typeof ContatoRoute
+  '/contato-bst': typeof ContatoBstRoute
   '/elevadores': typeof ElevadoresRoute
-  '/equipamentos': typeof EquipamentosRoute
   '/escadas': typeof EscadasRoute
-  '/revenda': typeof RevendaRoute
+  '/portfolio': typeof PortfolioRoute
   '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/bst-linha': typeof BstLinhaRoute
-  '/bst-monarch': typeof BstMonarchRoute
+  '/bst': typeof BstRoute
+  '/bst-info': typeof BstInfoRoute
   '/contato': typeof ContatoRoute
+  '/contato-bst': typeof ContatoBstRoute
   '/elevadores': typeof ElevadoresRoute
-  '/equipamentos': typeof EquipamentosRoute
   '/escadas': typeof EscadasRoute
-  '/revenda': typeof RevendaRoute
+  '/portfolio': typeof PortfolioRoute
   '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/bst-linha': typeof BstLinhaRoute
-  '/bst-monarch': typeof BstMonarchRoute
+  '/bst': typeof BstRoute
+  '/bst-info': typeof BstInfoRoute
   '/contato': typeof ContatoRoute
+  '/contato-bst': typeof ContatoBstRoute
   '/elevadores': typeof ElevadoresRoute
-  '/equipamentos': typeof EquipamentosRoute
   '/escadas': typeof EscadasRoute
-  '/revenda': typeof RevendaRoute
+  '/portfolio': typeof PortfolioRoute
   '/galeria/$slug': typeof GaleriaSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/bst-linha'
-    | '/bst-monarch'
+    | '/bst'
+    | '/bst-info'
     | '/contato'
+    | '/contato-bst'
     | '/elevadores'
-    | '/equipamentos'
     | '/escadas'
-    | '/revenda'
+    | '/portfolio'
     | '/galeria/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/bst-linha'
-    | '/bst-monarch'
+    | '/bst'
+    | '/bst-info'
     | '/contato'
+    | '/contato-bst'
     | '/elevadores'
-    | '/equipamentos'
     | '/escadas'
-    | '/revenda'
+    | '/portfolio'
     | '/galeria/$slug'
   id:
     | '__root__'
     | '/'
-    | '/bst-linha'
-    | '/bst-monarch'
+    | '/bst'
+    | '/bst-info'
     | '/contato'
+    | '/contato-bst'
     | '/elevadores'
-    | '/equipamentos'
     | '/escadas'
-    | '/revenda'
+    | '/portfolio'
     | '/galeria/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BstLinhaRoute: typeof BstLinhaRoute
-  BstMonarchRoute: typeof BstMonarchRoute
+  BstRoute: typeof BstRoute
+  BstInfoRoute: typeof BstInfoRoute
   ContatoRoute: typeof ContatoRoute
+  ContatoBstRoute: typeof ContatoBstRoute
   ElevadoresRoute: typeof ElevadoresRoute
-  EquipamentosRoute: typeof EquipamentosRoute
   EscadasRoute: typeof EscadasRoute
-  RevendaRoute: typeof RevendaRoute
+  PortfolioRoute: typeof PortfolioRoute
   GaleriaSlugRoute: typeof GaleriaSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/revenda': {
-      id: '/revenda'
-      path: '/revenda'
-      fullPath: '/revenda'
-      preLoaderRoute: typeof RevendaRouteImport
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/escadas': {
@@ -163,18 +163,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EscadasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/equipamentos': {
-      id: '/equipamentos'
-      path: '/equipamentos'
-      fullPath: '/equipamentos'
-      preLoaderRoute: typeof EquipamentosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/elevadores': {
       id: '/elevadores'
       path: '/elevadores'
       fullPath: '/elevadores'
       preLoaderRoute: typeof ElevadoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato-bst': {
+      id: '/contato-bst'
+      path: '/contato-bst'
+      fullPath: '/contato-bst'
+      preLoaderRoute: typeof ContatoBstRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -184,18 +184,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bst-monarch': {
-      id: '/bst-monarch'
-      path: '/bst-monarch'
-      fullPath: '/bst-monarch'
-      preLoaderRoute: typeof BstMonarchRouteImport
+    '/bst-info': {
+      id: '/bst-info'
+      path: '/bst-info'
+      fullPath: '/bst-info'
+      preLoaderRoute: typeof BstInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bst-linha': {
-      id: '/bst-linha'
-      path: '/bst-linha'
-      fullPath: '/bst-linha'
-      preLoaderRoute: typeof BstLinhaRouteImport
+    '/bst': {
+      id: '/bst'
+      path: '/bst'
+      fullPath: '/bst'
+      preLoaderRoute: typeof BstRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -217,13 +217,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BstLinhaRoute: BstLinhaRoute,
-  BstMonarchRoute: BstMonarchRoute,
+  BstRoute: BstRoute,
+  BstInfoRoute: BstInfoRoute,
   ContatoRoute: ContatoRoute,
+  ContatoBstRoute: ContatoBstRoute,
   ElevadoresRoute: ElevadoresRoute,
-  EquipamentosRoute: EquipamentosRoute,
   EscadasRoute: EscadasRoute,
-  RevendaRoute: RevendaRoute,
+  PortfolioRoute: PortfolioRoute,
   GaleriaSlugRoute: GaleriaSlugRoute,
 }
 export const routeTree = rootRouteImport
