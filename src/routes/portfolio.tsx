@@ -7,8 +7,8 @@ export const Route = createFileRoute("/portfolio")({
 });
 
 // Catálogos em PDF (links oficiais do Google Drive, conforme instruções.md das pastas)
-const CATALOGO_ESCADAS = "https://drive.google.com/file/d/1IOLUHzs9xOrey120eR1ogik8l4zEbjh6/view";
-const CATALOGO_ELEVADORES = "https://drive.google.com/file/d/1Q-xG9HGqVkYLNHEEUARsrDzPstLPoUic/view";
+const CATALOGO_ESCADAS = "https://drive.google.com/file/d/1wyNn17OvwRJRpczjZzF3qx2_IUpR_31m/view";
+const CATALOGO_ELEVADORES = "https://drive.google.com/file/d/1_ChK_Fp-QxMLXFzjcKNEo2pxTO8hqrCT/view";
 
 function Portfolio() {
   return (
